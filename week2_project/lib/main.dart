@@ -24,10 +24,7 @@ class PortfolioPage extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Bright Oppong Adu-Gyamfi"),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text("My Portfolio"), centerTitle: true),
 
       body: SafeArea(
         child: SingleChildScrollView(
