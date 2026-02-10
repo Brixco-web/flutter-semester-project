@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../models/portfolio_data.dart';
 
 class EducationSection extends StatelessWidget {
   const EducationSection({super.key});
@@ -18,37 +19,41 @@ class EducationSection extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         
-        SizedBox(
-          width: double.infinity,
-          child: Column(
-            children: const [
-              Icon(Icons.school, color: Colors.blue),
-              SizedBox(height: 5),
-              Text("Valley View University", style: TextStyle(fontWeight: FontWeight.bold)),
-              Text("Level 300 • BSc IT"),
-              SizedBox(height: 10),
-            ],
-          ),
-        ),
-
-        SizedBox(
-          width: double.infinity,
-          child: Column(
-            children: const [
-              Icon(Icons.book, color: Colors.blue),
-              SizedBox(height: 5),
-              Text("Relevant Courses", style: TextStyle(fontWeight: FontWeight.bold)),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  "Database Systems, Web Development, Mobile App Development",
-                  textAlign: TextAlign.center,
-                ),
+        ...PortfolioData.educationHistory.map((edu) => Column(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              child: Column(
+                children: [
+                  const Icon(Icons.school, color: Colors.blue),
+                  const SizedBox(height: 5),
+                  Text(edu.institution, style: const TextStyle(fontWeight: FontWeight.bold)),
+                  Text(edu.level),
+                  const SizedBox(height: 10),
+                ],
               ),
-              SizedBox(height: 10),
-            ],
-          ),
-        ),
+            ),
+
+            SizedBox(
+              width: double.infinity,
+              child: Column(
+                children: [
+                  const Icon(Icons.book, color: Colors.blue),
+                  const SizedBox(height: 5),
+                  const Text("Relevant Courses", style: TextStyle(fontWeight: FontWeight.bold)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                      edu.relevantCourses,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                ],
+              ),
+            ),
+          ],
+        )).toList(),
 
         const SizedBox(height: 20),
       ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../models/portfolio_data.dart';
 
 class ProjectsSection extends StatelessWidget {
   const ProjectsSection({super.key});
@@ -20,67 +21,29 @@ class ProjectsSection extends StatelessWidget {
           ),
         ),
 
-        SizedBox(
-          width: 500,
-          child: Card(
-            elevation: 3,
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                children: const [
-                  Text("Clinic Booking System", style: TextStyle(fontWeight: FontWeight.bold)),
-                  SizedBox(height: 5),
-                  Text(
-                    "Built using HTML, CSS, PHP, JavaScript and XAMPP for managing appointments.",
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+        ...PortfolioData.projects.map((project) => Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: SizedBox(
+            width: 500,
+            child: Card(
+              elevation: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  children: [
+                    Text(project.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 5),
+                    Text(
+                      project.description,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        const SizedBox(height: 10),
-
-        SizedBox(
-          width: 500,
-          child: Card(
-            elevation: 3,
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                children: const [
-                  Text("Contact Directory", style: TextStyle(fontWeight: FontWeight.bold)),
-                  SizedBox(height: 5),
-                  Text(
-                    "A system for storing and managing contacts efficiently.",
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 10),
-
-        SizedBox(
-          width: 500,
-          child: Card(
-            elevation: 3,
-             child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                children: const [
-                  Text("Hello World Flutter App", style: TextStyle(fontWeight: FontWeight.bold)),
-                  SizedBox(height: 5),
-                  Text(
-                    "My first Flutter mobile application.",
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+        )).toList(),
+        
         const SizedBox(height: 20),
       ],
     );
