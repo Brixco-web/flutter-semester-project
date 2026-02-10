@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'departments_screen.dart';
 import 'faculty_screen.dart';
+import 'department_details_screen.dart';
 
 void main() {
   runApp(const CampusDirectoryApp());
@@ -22,6 +23,10 @@ class CampusDirectoryApp extends StatelessWidget {
         '/': (context) => const HomeScreen(),
         '/departments': (context) => const DepartmentsScreen(),
         '/faculty': (context) => const FacultyScreen(),
+        '/department/detail': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Map;
+          return DepartmentDetailScreen(departmentName: args['name']);
+        },
       },
     );
   }
