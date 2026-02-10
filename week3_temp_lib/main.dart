@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:week3_campus_directory/faculty_screen.dart';
 import 'departments_screen.dart';
-import 'faculty_screen.dart';
+import 'department_details_screen.dart';
+
 
 void main() {
   runApp(const CampusDirectoryApp());
 }
 
+
 class CampusDirectoryApp extends StatelessWidget {
   const CampusDirectoryApp({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +24,23 @@ class CampusDirectoryApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const HomeScreen(),
-        '/departments': (context) => const DepartmentsScreen(),
         '/faculty': (context) => const FacultyScreen(),
+        '/departments': (context) => const DepartmentsScreen(),
+        '/department/detail': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Map;
+          return DepartmentDetailScreen(departmentName: args['name']);
+        },
       },
     );
   }
 }
 
+
+
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,32 +58,36 @@ class HomeScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
+
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               'Hello, Student 👋',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
+
             const Text(
               'Welcome to VVU Directory',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
+
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/departments');
               },
-              child: const Text('View Departments'),
+              child: const Text('View Departments'), 
             ),
-            const SizedBox(height: 10),
+            
+            
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/faculty');
               },
-              child: const Text('View Faculty'),
+              child: const Text('View Faculty'), 
             ),
           ],
         ),
