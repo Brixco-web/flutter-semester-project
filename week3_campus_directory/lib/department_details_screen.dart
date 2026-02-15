@@ -33,6 +33,25 @@ class _DepartmentDetailScreenState extends State<DepartmentDetailScreen> {
     });
   }
 
+  // Data for descriptions
+  static const Map<String, String> _descriptions = {
+    'Computer Science': 'The Computer Science department at Valley View University focuses on software engineering, mobile development, data science, and artificial intelligence. Our faculty are industry experts who provide hands-on training using modern technologies.',
+    'Engineering': 'The School of Engineering is dedicated to training students in civil, electrical, and biomedical engineering. We emphasize practical skills and innovation to solve real-world problems.',
+    'Business Administration': 'Our Business School offers comprehensive programs in accounting, marketing, banking, and finance. We prepare students for leadership roles in the global business environment.',
+    'Nursing and Midwifery': 'The School of Nursing and Midwifery provides top-tier education in healthcare, patient care, and medical ethics, preparing students for professional practice in hospitals and clinics.',
+    'Theology and Missions': 'This school focuses on theological studies, biblical interpretation, and missionary work, equipping students for ministry and religious leadership.',
+    'Education': 'The School of Education trains future teachers and educational administrators with modern pedagogical skills and a passion for shaping young minds.',
+  };
+
+  static const Map<String, String> _subtitles = {
+     'Computer Science': 'Department of Computing Sciences',
+     'Engineering': 'School of Engineering',
+     'Business Administration': 'School of Business',
+     'Nursing and Midwifery': 'School of Nursing & Midwifery',
+     'Theology and Missions': 'School of Theology & Missions',
+     'Education': 'School of Education',
+  };
+
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +79,9 @@ class _DepartmentDetailScreenState extends State<DepartmentDetailScreen> {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    const Text(
-                      'Department of Computing Sciences and Engineering',
-                      style: TextStyle(color: Colors.grey),
+                    Text(
+                      _subtitles[widget.departmentName] ?? 'Department at VVU',
+                      style: const TextStyle(color: Colors.grey),
                     ),
                   ],
                 ),
@@ -85,9 +104,9 @@ class _DepartmentDetailScreenState extends State<DepartmentDetailScreen> {
                   if (_isExpanded)
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                      child: const Text(
-                        'The Computer Science department at Valley View University focuses on software engineering, mobile development, data science, and artificial intelligence. Our faculty are industry experts who provide hands-on training using modern technologies.',
-                        style: TextStyle(fontSize: 16),
+                      child: Text(
+                        _descriptions[widget.departmentName] ?? 'Welcome to the ${widget.departmentName} department. Here you will find all information about courses, faculty, and student activities.',
+                        style: const TextStyle(fontSize: 16),
                       ),
                     ),
                 ],

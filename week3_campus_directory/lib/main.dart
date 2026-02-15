@@ -65,18 +65,44 @@ class HomeScreen extends StatelessWidget {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/departments');
-              },
-              child: const Text('View Departments'),
+            SizedBox(
+              width: 280,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/departments');
+                },
+                icon: const Icon(Icons.school),
+                label: const Text('View Departments', style: TextStyle(fontSize: 16)),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                ),
+              ),
             ),
+            const SizedBox(height: 15),
+            SizedBox(
+              width: 280,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/faculty');
+                },
+                icon: const Icon(Icons.people),
+                label: const Text('View Faculty', style: TextStyle(fontSize: 16)),
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                ),
+              ),
+            ),
+            const SizedBox(height: 40),
+            const Divider(indent: 50, endIndent: 50),
             const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/faculty');
-              },
-              child: const Text('View Faculty'),
+            const Text(
+              'Campus Directory v1.0',
+              style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
+            ),
+            const SizedBox(height: 5),
+            const Text(
+              'Need Help? Contact IT Support',
+              style: TextStyle(color: Colors.grey, fontSize: 12),
             ),
           ],
         ),
