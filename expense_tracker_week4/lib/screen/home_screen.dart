@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/expense.dart';
-import '../database/expense_database.dart';
+import '../detabase/expense_database.dart';
 import 'add_expense_screen.dart';
 import 'expense_detail_screen.dart';
 
