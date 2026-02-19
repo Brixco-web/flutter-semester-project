@@ -3,7 +3,7 @@ import '../models/expense.dart';
 import '../detabase/expense_database.dart';
 import 'add_expense_screen.dart';
 import 'package:intl/intl.dart';
-import '../models/category.dart';
+import '../utils/category_utils.dart';
 
 class ExpenseDetailScreen extends StatelessWidget {
   final Expense expense;
@@ -43,93 +43,129 @@ class ExpenseDetailScreen extends StatelessWidget {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AddExpenseScreen(),
-        // In a real app, you'd pass the expense to edit
+        builder: (context) => AddExpenseScreen(expense: expense),
       ),
     );
     if (result == true) {
-      Navigator.pop(context, true);
+      if (context.mounted) {
+        Navigator.pop(context, true);
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final dateFormat = DateFormat('MMMM dd, yyyy');
-    final categoryIcon = ExpenseCategory.categoryIcons[expense.category] ?? Icons.category;
+    final categoryColor = CategoryUtils.getColor(expense.category);
+    final categoryIcon = CategoryUtils.getIcon(expense.category);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(expense.title),
+        title: const Text('Details'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.edit),
+            icon: const Icon(Icons.edit_outlined),
             onPressed: () => _editExpense(context),
           ),
           IconButton(
-            icon: const Icon(Icons.delete),
+            icon: const Icon(Icons.delete_outline, color: Colors.red),
             onPressed: () => _deleteExpense(context),
           ),
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Amount Card
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    const Text(
-                      'Amount',
-                      style: TextStyle(fontSize: 16, color: Colors.grey),
+            Hero(
+              tag: 'expense_${expense.id}',
+              child: Material(
+                color: Colors.transparent,
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 40),
+                  decoration: BoxDecoration(
+                    color: categoryColor.withOpacity(0.1),
+                    borderRadius: const BorderRadius.vertical(
+                      bottom: Radius.circular(32),
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'GHS ${expense.amount.toStringAsFixed(2)}',
-                      style: const TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: categoryColor.withOpacity(0.2),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          categoryIcon,
+                          size: 48,
+                          color: categoryColor,
+                        ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 24),
+                      Text(
+                        'GHS ${expense.amount.toStringAsFixed(2)}',
+                        style: TextStyle(
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold,
+                          color: categoryColor,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        expense.title,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-            
-            const SizedBox(height: 16),
-            
-            // Details Card
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    _buildDetailRow(
-                      Icons.category,
-                      'Category',
-                      expense.category,
-                      icon: categoryIcon,
-                    ),
-                    const Divider(),
-                    _buildDetailRow(
-                      Icons.calendar_today,
-                      'Date',
-                      dateFormat.format(expense.date),
-                    ),
-                    if (expense.notes != null) ...[
-                      const Divider(),
+            Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildDetailSection(
+                    context,
+                    'Information',
+                    [
                       _buildDetailRow(
-                        Icons.note,
-                        'Notes',
-                        expense.notes!,
+                        Icons.category_outlined,
+                        'Category',
+                        expense.category,
+                        categoryColor,
+                      ),
+                      _buildDetailRow(
+                        Icons.calendar_today_outlined,
+                        'Date',
+                        dateFormat.format(expense.date),
+                        categoryColor,
                       ),
                     ],
+                  ),
+                  if (expense.notes != null && expense.notes!.isNotEmpty) ...[
+                    const SizedBox(height: 24),
+                    _buildDetailSection(
+                      context,
+                      'Notes',
+                      [
+                        Text(
+                          expense.notes!,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[700],
+                            height: 1.5,
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
-                ),
+                ],
               ),
             ),
           ],
@@ -138,34 +174,73 @@ class ExpenseDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDetailRow(IconData leadingIcon, String label, String value, {IconData? icon}) {
+  Widget _buildDetailSection(BuildContext context, String title, List<Widget> children) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title.toUpperCase(),
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey[500],
+            letterSpacing: 1.2,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.03),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Column(
+            children: children,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDetailRow(IconData icon, String label, String value, Color themeColor) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(leadingIcon, size: 20, color: Colors.grey[600]),
-          const SizedBox(width: 16),
-          SizedBox(
-            width: 80,
-            child: Text(
-              label,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.grey,
-              ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: themeColor.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
             ),
+            child: Icon(icon, size: 20, color: themeColor),
           ),
-          Expanded(
-            child: icon != null
-                ? Row(
-                    children: [
-                      Icon(icon, size: 16, color: Colors.blue),
-                      const SizedBox(width: 8),
-                      Expanded(child: Text(value)),
-                    ],
-                  )
-                : Text(value),
+          const SizedBox(width: 16),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey[500],
+                ),
+              ),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
           ),
         ],
       ),
