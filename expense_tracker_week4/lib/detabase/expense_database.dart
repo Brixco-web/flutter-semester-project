@@ -33,7 +33,6 @@ class ExpenseDatabase {
     const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
     const textType = 'TEXT NOT NULL';
     const doubleType = 'REAL NOT NULL';
-    const intType = 'INTEGER NOT NULL';
 
     await db.execute('''
     CREATE TABLE expenses (
