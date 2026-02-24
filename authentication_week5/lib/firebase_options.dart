@@ -45,12 +45,13 @@ class DefaultFirebaseOptions {
   // Or run: flutterfire configure
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'YOUR-API-KEY',
-    appId: 'YOUR-APP-ID',
-    messagingSenderId: 'YOUR-SENDER-ID',
-    projectId: 'YOUR-PROJECT-ID',
-    authDomain: 'YOUR-PROJECT-ID.firebaseapp.com',
-    storageBucket: 'YOUR-PROJECT-ID.appspot.com',
+    apiKey: 'AIzaSyAqg-u75-syUt2QWO_0GOs_lvGKhHh0APs',
+    appId: '1:182382946786:web:e1c4d966e600f4237071bb',
+    messagingSenderId: '182382946786',
+    projectId: 'authentication-week5-943db',
+    authDomain: 'authentication-week5-943db.firebaseapp.com',
+    storageBucket: 'authentication-week5-943db.firebasestorage.app',
+    measurementId: 'G-Q2P5YGL2F7',
   );
 
   static const FirebaseOptions android = FirebaseOptions(

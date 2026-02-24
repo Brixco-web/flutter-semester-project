@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
       } else if (e.code == 'invalid-email') {
         errorMessage = 'Invalid email format.';
       } else {
-        errorMessage = 'Login failed: ${e.message}';
+        errorMessage = 'Login failed: ${e.message} [${e.code}]';
       }
       
       // Show error to user

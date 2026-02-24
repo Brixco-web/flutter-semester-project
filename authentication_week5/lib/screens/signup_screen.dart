@@ -67,7 +67,7 @@ class _SignupScreenState extends State<SignupScreen> {
       } else if (e.code == 'invalid-email') {
         errorMessage = 'The email address is invalid.';
       } else {
-        errorMessage = 'Registration failed: ${e.message}';
+        errorMessage = 'Registration failed: ${e.message} [${e.code}]';
       }
       
       ScaffoldMessenger.of(context).showSnackBar(
