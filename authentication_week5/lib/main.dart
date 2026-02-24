@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Authenticated User Dashboard',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: AuthWrapper(), // We'll build this next
+      home: const AuthWrapper(),
     );
   }
 }
