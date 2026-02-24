@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "182382946786",
+    "project_id": "authentication-week5-943db",
+    "storage_bucket": "authentication-week5-943db.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182382946786:android:99eb9661231a62767071bb",
+        "android_client_info": {
+          "package_name": "com.example.authentication_week5"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkZBG7AiePTc1f7sPpexTe_0EwxJXMlyg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
